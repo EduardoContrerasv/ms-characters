@@ -1,4 +1,4 @@
-package cl.duoc.ms_characters.model;
+package cl.duoc.ms_characters.enums;
 
 public enum CharacterArchetype {
     ATTACK,

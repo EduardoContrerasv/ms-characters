@@ -1,6 +1,6 @@
 package cl.duoc.ms_characters.dto;
 
-import cl.duoc.ms_characters.model.CharacterArchetype;
+import cl.duoc.ms_characters.enums.CharacterArchetype;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,4 +21,7 @@ public class BaseCharacterRequestDto {
 
     @Min(1)
     private int baseDefense;
+
+    @NotNull
+    private Long defaultCosmeticItemId;
 }
