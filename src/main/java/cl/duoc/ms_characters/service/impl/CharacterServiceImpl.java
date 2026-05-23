@@ -9,10 +9,12 @@ import cl.duoc.ms_characters.repository.BaseCharacterRepository;
 import cl.duoc.ms_characters.repository.UserCharacterRepository;
 import cl.duoc.ms_characters.service.CharacterService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import cl.duoc.ms_characters.client.ItemClient;
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CharacterServiceImpl implements CharacterService {
@@ -26,6 +28,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<UserRosterResponseDto> getUserRoster(long userId) {
+        log.info("getUserRoster");
         List<UserCharacter> roster = userCharacterRepository.findByUserId(userId);
 
         return roster.stream().map(uc -> {
@@ -42,7 +45,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public String createBaseCharacter(BaseCharacterRequestDto dto) {
-
+        log.info("createBaseCharacter");
         if (baseCharacterRepository.findByName(dto.getName()).isPresent()) {
             throw new RuntimeException("El héroe " + dto.getName() + " ya existe.");
         }
@@ -88,7 +91,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public String unlockCharacterForUser(UnlockCharacterDto dto) {
-
+        log.info("unlockCharacterForUser");
         try {
             UserFeignDto user = userFeignClient.getUserById(dto.getUserId());
             if (user == null) throw new RuntimeException("Usuario no encontrado.");
@@ -115,6 +118,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public String equipItem(EquipItemDto dto) {
+        log.info("equipItem");
 
         UserCharacter playerHero = userCharacterRepository
                 .findByUserIdAndBaseCharacterId(dto.getUserId(), dto.getUserCharacterId())
@@ -157,6 +161,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<AdminRosterResponseDto> getAllCharacters() {
+        log.info("getAllCharacters");
 
         List<BaseCharacter> blueprints = baseCharacterRepository.findAll();
 
